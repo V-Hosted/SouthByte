@@ -1,193 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SouthByte – Local IT Support</title>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  :root {
-    --navy: #0a1628;
-    --mid: #0d2b55;
-    --sea: #1565c0;
-    --bright: #29b6f6;
-    --sky: #e3f2fd;
-    --sand: #f4f7fb;
-    --coral: #e05c3a;
-    --text: #0d1b2e;
-    --muted: #4a6080;
-    --white: #ffffff;
-    --radius: 14px;
-  }
-  html { scroll-behavior: smooth; }
-  body { font-family: 'Nunito', sans-serif; color: var(--text); background: var(--white); }
-  nav {
-    position: sticky; top: 0; z-index: 100;
-    background: var(--navy);
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0 5%; height: 66px;
-    border-bottom: 1px solid rgba(41,182,246,0.15);
-  }
-  .nav-logo { font-family: 'DM Serif Display', serif; font-size: 1.4rem; color: var(--white); letter-spacing: 0.5px; }
-  .nav-logo span { color: var(--bright); }
-  .nav-links { display: flex; gap: 28px; list-style: none; }
-  .nav-links a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.9rem; font-weight: 600; transition: color 0.2s; }
-  .nav-links a:hover { color: var(--bright); }
-  .nav-cta { background: var(--coral); color: var(--white); border: none; padding: 9px 22px; border-radius: 50px; font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 0.9rem; cursor: pointer; transition: opacity 0.2s; }
-  .nav-cta:hover { opacity: 0.88; }
-
-  /* HERO */
-  .hero {
-    background: linear-gradient(135deg, var(--navy) 0%, #0d2b55 55%, #1255a0 100%);
-    padding: 90px 5% 80px;
-    display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
-    min-height: 520px;
-  }
-  .hero-eyebrow { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
-  .hero-eyebrow span { font-size: 0.82rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--bright); }
-  .hero-eyebrow::after { content: ''; flex: 1; max-width: 60px; height: 1px; background: rgba(41,182,246,0.4); }
-  .hero-text h1 { font-family: 'DM Serif Display', serif; font-size: clamp(2.2rem, 4vw, 3.2rem); color: var(--white); line-height: 1.2; margin-bottom: 20px; }
-  .hero-text h1 em { color: var(--bright); font-style: italic; }
-  .hero-text p { color: rgba(255,255,255,0.75); font-size: 1.05rem; line-height: 1.7; margin-bottom: 32px; max-width: 420px; }
-  .hero-buttons { display: flex; gap: 14px; flex-wrap: wrap; }
-  .btn-primary { background: var(--coral); color: var(--white); border: none; padding: 13px 28px; border-radius: 50px; font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 1rem; cursor: pointer; transition: transform 0.15s, opacity 0.15s; text-decoration: none; display: inline-block; }
-  .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
-  .btn-outline { background: transparent; color: var(--white); border: 2px solid rgba(255,255,255,0.4); padding: 11px 28px; border-radius: 50px; font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 1rem; cursor: pointer; transition: border-color 0.2s, background 0.2s; text-decoration: none; display: inline-block; }
-  .btn-outline:hover { border-color: var(--bright); background: rgba(41,182,246,0.08); }
-  .hero-visual { display: flex; flex-direction: column; gap: 12px; animation: floatUp 0.7s ease both; }
-  @keyframes floatUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
-  .trust-pill { background: rgba(255,255,255,0.07); border: 1px solid rgba(41,182,246,0.25); border-radius: 50px; padding: 10px 18px; color: rgba(255,255,255,0.88); font-size: 0.9rem; font-weight: 600; display: flex; align-items: center; gap: 10px; }
-  .trust-pill .icon { font-size: 1.1rem; }
-  .stats-row { display: flex; gap: 12px; margin-top: 8px; }
-  .stat-card { flex: 1; background: rgba(255,255,255,0.08); border: 1px solid rgba(41,182,246,0.2); border-radius: var(--radius); padding: 16px 14px; text-align: center; }
-  .stat-card .num { font-family: 'DM Serif Display', serif; font-size: 1.8rem; color: var(--bright); }
-  .stat-card .label { font-size: 0.8rem; color: rgba(255,255,255,0.65); margin-top: 2px; }
-
-  /* SHARED */
-  section { padding: 80px 5%; }
-  .section-label { font-size: 0.8rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--sea); margin-bottom: 10px; }
-  .section-title { font-family: 'DM Serif Display', serif; font-size: clamp(1.8rem, 3vw, 2.5rem); color: var(--navy); margin-bottom: 14px; }
-  .section-sub { color: var(--muted); font-size: 1rem; line-height: 1.65; max-width: 540px; }
-
-  /* SERVICES */
-  #services { background: var(--sand); }
-  .services-header { text-align: center; margin-bottom: 52px; }
-  .services-header .section-sub { margin: 0 auto; }
-
-  .services-split { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
-  .service-group { background: var(--white); border-radius: 20px; border: 1.5px solid #dde8f5; overflow: hidden; }
-  .service-group-header { padding: 22px 28px 18px; border-bottom: 1.5px solid #dde8f5; display: flex; align-items: center; gap: 14px; }
-  .group-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; }
-  .group-icon.home { background: #dbeeff; }
-  .group-icon.biz { background: #d4f4ec; }
-  .service-group-header h3 { font-family: 'DM Serif Display', serif; font-size: 1.3rem; color: var(--navy); }
-  .service-group-header p { font-size: 0.85rem; color: var(--muted); margin-top: 2px; }
-  .service-list { padding: 10px 0; }
-  .service-item { display: flex; gap: 14px; align-items: flex-start; padding: 16px 28px; border-bottom: 1px solid #f0f5fb; transition: background 0.15s; }
-  .service-item:last-child { border-bottom: none; }
-  .service-item:hover { background: #f8fbff; }
-  .si-icon { width: 36px; height: 36px; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
-  .si-icon.blue { background: #dbeeff; }
-  .si-icon.teal { background: #d4f4ec; }
-  .si-icon.coral { background: #fde8e2; }
-  .si-icon.amber { background: #fef3da; }
-  .si-icon.purple { background: #ede9fe; }
-  .service-item h4 { font-size: 0.95rem; font-weight: 700; color: var(--navy); margin-bottom: 3px; }
-  .service-item p { font-size: 0.85rem; color: var(--muted); line-height: 1.55; }
-
-  /* FREE ADVICE BANNER */
-  .advice-banner {
-    margin: 40px 0 0;
-    background: linear-gradient(135deg, var(--navy) 0%, #1255a0 100%);
-    border-radius: 16px;
-    padding: 28px 32px;
-    display: flex; align-items: center; justify-content: space-between; gap: 24px;
-    flex-wrap: wrap;
-  }
-  .advice-banner-text h4 { font-family: 'DM Serif Display', serif; font-size: 1.25rem; color: var(--white); margin-bottom: 6px; }
-  .advice-banner-text p { font-size: 0.9rem; color: rgba(255,255,255,0.72); }
-  .advice-banner-text p strong { color: var(--bright); }
-  .whatsapp-btn { background: #25d366; color: var(--white); border: none; padding: 12px 24px; border-radius: 50px; font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 0.95rem; cursor: pointer; white-space: nowrap; display: flex; align-items: center; gap: 8px; transition: opacity 0.2s; }
-  .whatsapp-btn:hover { opacity: 0.88; }
-
-  /* ABOUT */
-  #about { background: var(--white); }
-  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: center; }
-  .about-points { display: flex; flex-direction: column; gap: 20px; margin-top: 28px; }
-  .about-point { display: flex; gap: 14px; }
-  .point-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--sea); flex-shrink: 0; margin-top: 7px; }
-  .about-point strong { display: block; font-weight: 700; color: var(--navy); margin-bottom: 3px; }
-  .about-point span { font-size: 0.92rem; color: var(--muted); line-height: 1.6; }
-  .about-visual { background: linear-gradient(145deg, var(--sky) 0%, #bbdefb 100%); border-radius: 24px; padding: 40px 32px; border: 1.5px solid #90caf9; }
-  .av-title { font-family: 'DM Serif Display', serif; font-size: 1.35rem; color: var(--navy); margin-bottom: 22px; }
-  .coverage-item { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
-  .coverage-icon { width: 36px; height: 36px; border-radius: 8px; background: var(--white); display: flex; align-items: center; justify-content: center; font-size: 1rem; border: 1px solid #90caf9; flex-shrink: 0; }
-  .coverage-item span { font-size: 0.9rem; color: var(--navy); font-weight: 600; }
-  .coverage-badge { margin-top: 22px; background: var(--navy); color: var(--white); border-radius: 50px; padding: 10px 18px; font-size: 0.85rem; font-weight: 700; display: inline-block; }
-
-  /* CONTACT */
-  #contact { background: var(--navy); }
-  .contact-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: start; }
-  .contact-text .section-title { color: var(--white); }
-  .contact-text .section-label { color: var(--bright); }
-  .contact-text p { color: rgba(255,255,255,0.7); line-height: 1.7; margin-bottom: 28px; }
-  .contact-methods { display: flex; flex-direction: column; gap: 14px; }
-  .contact-method { display: flex; align-items: center; gap: 14px; }
-  .cm-icon { width: 40px; height: 40px; border-radius: 10px; background: rgba(41,182,246,0.12); border: 1px solid rgba(41,182,246,0.25); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
-  .cm-text strong { display: block; color: var(--white); font-size: 0.9rem; margin-bottom: 1px; }
-  .cm-text span { color: rgba(255,255,255,0.6); font-size: 0.88rem; }
-  .contact-form { background: rgba(255,255,255,0.05); border: 1px solid rgba(41,182,246,0.18); border-radius: var(--radius); padding: 32px 28px; }
-  .form-group { margin-bottom: 16px; }
-  .form-group label { display: block; font-size: 0.83rem; font-weight: 700; color: rgba(255,255,255,0.65); margin-bottom: 7px; letter-spacing: 0.5px; text-transform: uppercase; }
-  .form-group input, .form-group select, .form-group textarea { width: 100%; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18); border-radius: 8px; padding: 10px 14px; color: var(--white); font-family: 'Nunito', sans-serif; font-size: 0.95rem; outline: none; transition: border-color 0.2s; }
-  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--bright); }
-  .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(255,255,255,0.3); }
-  .form-group select option { background: var(--navy); color: var(--white); }
-  .form-group textarea { resize: vertical; min-height: 90px; }
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-  .form-submit { background: var(--coral); color: var(--white); border: none; width: 100%; padding: 13px; border-radius: 8px; font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 1rem; cursor: pointer; margin-top: 4px; transition: opacity 0.2s; }
-  .form-submit:hover { opacity: 0.88; }
-
-  footer { background: #060f1e; padding: 28px 5%; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
-  .footer-logo { font-family: 'DM Serif Display', serif; font-size: 1.1rem; color: var(--white); }
-  .footer-logo span { color: var(--bright); }
-  footer p { font-size: 0.82rem; color: rgba(255,255,255,0.4); }
-
-  @media (max-width: 780px) {
-    .hero { grid-template-columns: 1fr; gap: 40px; padding: 60px 5% 50px; }
-    .about-grid, .contact-inner, .services-split { grid-template-columns: 1fr; gap: 24px; }
-    .nav-links { display: none; }
-    .stats-row { flex-wrap: wrap; }
-  }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SouthByte – Nationwide IT support and managed services for homes and businesses. PC repair, fully managed IT, cloud, security compliance and more.">
+  <title>SouthByte – IT Support &amp; Managed Services | UK</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+<!-- NAV -->
 <nav>
-  <div class="nav-logo">South<span>Byte</span></div>
+  <a href="#home" class="nav-logo">South<span>Byte</span></a>
   <ul class="nav-links">
     <li><a href="#services">Services</a></li>
     <li><a href="#about">About</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
-  <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Get Help Today</button>
+  <div class="nav-right">
+    <button class="nav-pricing-btn" id="pricingBtn">💷 Pricing</button>
+    <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Get Help Today</button>
+  </div>
 </nav>
 
+<!-- PRICING MODAL -->
+<div class="modal-overlay" id="pricingModal">
+  <div class="modal">
+    <button class="modal-close" id="pricingClose">&times;</button>
+    <h2>Rates &amp; Pricing</h2>
+    <p class="modal-sub">Transparent pricing — you'll always get a clear quote before any work begins. No hidden charges.</p>
+    <div class="pricing-grid">
+      <div class="pricing-col">
+        <h3>🏠 Home</h3>
+        <div class="pricing-row"><span class="p-label">Call-out fee</span><span class="p-price">£XX</span></div>
+        <div class="pricing-row"><span class="p-label">Hourly rate</span><span class="p-price">£XX/hr</span></div>
+        <div class="pricing-row"><span class="p-label">Day rate</span><span class="p-price">£XX/day</span></div>
+        <div class="pricing-row"><span class="p-label">Remote support</span><span class="p-price">£XX/hr</span></div>
+        <div class="pricing-row"><span class="p-label">Teaching session</span><span class="p-price">£XX/hr</span></div>
+      </div>
+      <div class="pricing-col">
+        <h3>🏢 Business</h3>
+        <div class="pricing-row"><span class="p-label">Half-day rate</span><span class="p-price">£XX</span></div>
+        <div class="pricing-row"><span class="p-label">Day rate</span><span class="p-price">£XX/day</span></div>
+        <div class="pricing-contact">
+          <span class="pc-icon">✉️</span>
+          <p>
+            <strong>Managed IT &amp; project enquiries</strong>
+            All MSP, managed service and contract pricing is tailored. Get in touch directly:<br>
+            <a href="mailto:business@southbyte.co.uk">business@southbyte.co.uk</a>
+          </p>
+        </div>
+      </div>
+    </div>
+    <p class="modal-note">All prices exclude VAT where applicable. Fixed-price quotes available on request.</p>
+  </div>
+</div>
+
+<!-- MSP MODAL -->
+<div class="modal-overlay" id="mspModal">
+  <div class="modal msp-modal">
+    <button class="modal-close" id="mspClose">&times;</button>
+    <h2>Fully Managed IT Service</h2>
+    <p class="modal-sub">One partner. Your entire IT environment — secured, maintained and compliant.</p>
+    <div class="msp-security-note">
+      <p>We don't just keep the lights on. SouthByte takes full ownership of your IT estate, ensuring every device, system and process meets <strong>current security standards</strong> — including ISO 27001 and BSI frameworks. From your office floor to the cloud, we manage it all.</p>
+    </div>
+    <div class="msp-tags">
+      <span class="mtag">💻 Laptops &amp; Desktops</span>
+      <span class="mtag">🖥️ Servers</span>
+      <span class="mtag">🌐 Networks &amp; Switches</span>
+      <span class="mtag">🔥 Firewalls</span>
+      <span class="mtag">📞 Phone Systems (VoIP)</span>
+      <span class="mtag">📱 Mobile Device Management</span>
+      <span class="mtag">🧩 Software Management</span>
+      <span class="mtag">🔄 Patch Management</span>
+      <span class="mtag">🔍 Vulnerability Management</span>
+      <span class="mtag">☁️ Cloud Services &amp; Infrastructure</span>
+      <span class="mtag">🏪 POS Terminals</span>
+      <span class="mtag">💳 Credit Card Machines</span>
+      <span class="mtag">📋 ISO 27001 Compliance</span>
+      <span class="mtag">✅ BSI Compliance</span>
+    </div>
+    <p class="modal-note">Pricing is bespoke and based on your environment size. Contact <a href="mailto:business@southbyte.co.uk" style="color:var(--bright);">business@southbyte.co.uk</a> for a no-obligation assessment.</p>
+  </div>
+</div>
+
+<!-- HERO -->
 <section class="hero" id="home">
   <div class="hero-text">
-    <div class="hero-eyebrow"><span>South Coast IT Support</span></div>
-    <h1>Tech problems? <em>Sorted.</em><br>Fast, friendly &amp; local.</h1>
-    <p>From fixing your home PC to setting up your business network — SouthByte is your local IT team. No call centres, no jargon. Just real help from real people, right on your doorstep.</p>
+    <div class="hero-eyebrow"><span>UK IT Support &amp; Managed Services</span></div>
+    <h1>Your IT, <em>fully managed.</em><br>Secure, reliable &amp; hassle-free.</h1>
+    <p>From fixing your home PC to managing your entire business IT environment — SouthByte is your dedicated IT partner. No call centres, no jargon. Just real expertise, real accountability, nationwide.</p>
     <div class="hero-buttons">
       <a href="#contact" class="btn-primary">Get in Touch</a>
       <a href="#services" class="btn-outline">See What We Do</a>
     </div>
   </div>
   <div class="hero-visual">
-    <div class="trust-pill"><span class="icon">📍</span> Based on the South Coast, UK</div>
-    <div class="trust-pill"><span class="icon">🏠</span> Home &amp; business visits available</div>
-    <div class="trust-pill"><span class="icon">⚡</span> Support is readily avalible</div>
+    <div class="trust-pill"><span class="icon">🇬🇧</span> Serving businesses &amp; homes across the UK</div>
+    <div class="trust-pill"><span class="icon">🛡️</span> ISO 27001 &amp; BSI compliance support</div>
+    <div class="trust-pill"><span class="icon">⚡</span> Same-day support available</div>
     <div class="stats-row">
       <div class="stat-card"><div class="num">5★</div><div class="label">Rated locally</div></div>
       <div class="stat-card"><div class="num">Fast</div><div class="label">Turnaround</div></div>
@@ -196,11 +111,12 @@
   </div>
 </section>
 
+<!-- SERVICES -->
 <section id="services">
   <div class="services-header">
     <p class="section-label">What we offer</p>
     <h2 class="section-title">Services for home &amp; business</h2>
-    <p class="section-sub">Whatever you need — at home or at work — we've got the right solution for you.</p>
+    <p class="section-sub">Whether you need a one-off fix at home or a fully managed IT partner for your business — we have the right solution.</p>
   </div>
 
   <div class="services-split">
@@ -217,23 +133,59 @@
       <div class="service-list">
         <div class="service-item">
           <div class="si-icon blue">💻</div>
-          <div><h4>PC Repair &amp; Tune-Up</h4><p>Virus removal, slow PC fixes, hardware upgrades, data recovery and Windows reinstalls.</p></div>
+          <div>
+            <h4>PC Repair &amp; Tune-Up</h4>
+            <p>Virus removal, slow PC fixes, hardware upgrades, data recovery and Windows reinstalls.</p>
+          </div>
         </div>
         <div class="service-item">
           <div class="si-icon teal">🎮</div>
-          <div><h4>Gaming PC Builds &amp; Fixes</h4><p>Custom builds, GPU upgrades, thermal repasting and performance optimisation.</p></div>
+          <div>
+            <h4>Gaming PC &amp; Console Builds, Fixes &amp; Support</h4>
+            <p>Custom PC builds, GPU upgrades, thermal repasting and performance optimisation. Console support for PlayStation, Xbox and Switch — setup, repairs, connectivity and account recovery.</p>
+          </div>
         </div>
         <div class="service-item">
           <div class="si-icon coral">📡</div>
-          <div><h4>Wi-Fi &amp; Broadband</h4><p>Slow speeds, dead zones, mesh systems and extender setup — sorted at home.</p></div>
+          <div>
+            <h4>Wi-Fi &amp; Broadband</h4>
+            <p>Slow speeds, dead zones, mesh systems and extender setup — sorted at home.</p>
+          </div>
         </div>
         <div class="service-item">
           <div class="si-icon amber">📹</div>
-          <div><h4>Home CCTV &amp; Security</h4><p>Camera installation, setup and configuration to keep your home secure.</p></div>
+          <div>
+            <h4>Home CCTV &amp; Security</h4>
+            <p>Camera installation, setup and configuration to keep your home secure.</p>
+          </div>
         </div>
         <div class="service-item">
           <div class="si-icon purple">🎓</div>
-          <div><h4>Teaching &amp; Advice</h4><p>One-to-one lessons on using devices, apps, email, social media or the internet — at your own pace.</p></div>
+          <div>
+            <h4>Teaching &amp; Advice</h4>
+            <p>One-to-one lessons on devices, apps, email, social media or the internet — at your own pace.</p>
+          </div>
+        </div>
+        <div class="service-item">
+          <div class="si-icon indigo">🖥️</div>
+          <div>
+            <h4>Remote Support</h4>
+            <p>Fast remote assistance — we connect securely to your device and fix it without needing to visit.</p>
+          </div>
+        </div>
+        <div class="service-item">
+          <div class="si-icon blue">☁️</div>
+          <div>
+            <h4>Data Storage, Home Cloud &amp; Backup</h4>
+            <p>NAS drives, home cloud setup, photo and file backup solutions — keep your data safe, accessible and organised.</p>
+          </div>
+        </div>
+        <div class="service-item">
+          <div class="si-icon green">🏠</div>
+          <div>
+            <h4>Personal IT &amp; Smart Home</h4>
+            <p>General personal IT advice, printer setup, smart home device configuration and making sure all your tech works together seamlessly.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -244,36 +196,65 @@
         <div class="group-icon biz">🏢</div>
         <div>
           <h3>Business Services</h3>
-          <p>Reliable IT support for small businesses</p>
+          <p>Managed IT &amp; specialist support for SMEs</p>
         </div>
       </div>
       <div class="service-list">
+
         <div class="service-item">
-          <div class="si-icon blue">🌐</div>
-          <div><h4>Website Design &amp; Builds</h4><p>Professional websites built and deployed for your business, from scratch.</p></div>
+          <div class="si-icon green">🛡️</div>
+          <div>
+            <h4>Fully Managed IT Service</h4>
+            <p>End-to-end ownership of your IT estate. We keep every device, network and system secure, patched and compliant — so you never have to think about it.</p>
+            <button class="btn-msp" id="mspTrigger">What's included ↗</button>
+          </div>
         </div>
+
+        <div class="service-item">
+          <div class="si-icon blue">☁️</div>
+          <div>
+            <h4>Business IT Partner &amp; Cloud Services</h4>
+            <p>Your outsourced IT department. We manage your team's cloud environment end-to-end — Microsoft 365, SharePoint, Teams, business email and secure remote working. Every user, every device, every policy — aligned to security best practice.</p>
+          </div>
+        </div>
+
         <div class="service-item">
           <div class="si-icon teal">🔗</div>
-          <div><h4>Domain &amp; Hosting Setup</h4><p>Domain registration, DNS configuration, hosting and ongoing management.</p></div>
+          <div>
+            <h4>Domain, Hosting &amp; Infrastructure</h4>
+            <p>Domain registration, DNS, hosting, SSL and ongoing infrastructure management — all handled for you.</p>
+          </div>
         </div>
-        <div class="service-item">
-          <div class="si-icon coral">✉️</div>
-          <div><h4>Business Email Setup</h4><p>Professional email addresses, Microsoft 365 or Google Workspace configuration.</p></div>
-        </div>
+
         <div class="service-item">
           <div class="si-icon amber">📡</div>
-          <div><h4>Office Wi-Fi, Networks &amp; Security</h4><p>Fast, reliable networking for your workplace — including CCTV, R&S and security systems.</p></div>
+          <div>
+            <h4>Office Networks, Wi-Fi &amp; Security</h4>
+            <p>Reliable, segmented networking for your workplace — switches, firewalls, CCTV and physical security systems, built to a professional standard.</p>
+          </div>
         </div>
+
         <div class="service-item">
-          <div class="si-icon purple">🖥️</div>
-          <div><h4>Workstation, Server or Cloud Setup &amp; Management</h4><p>Keep your team productive and running smoothly in the modern world.</p></div>
+          <div class="si-icon coral">🌐</div>
+          <div>
+            <h4>Website Design &amp; Builds</h4>
+            <p>Professional, performant websites designed and deployed for your business — from initial concept to going live.</p>
+          </div>
         </div>
+
+        <div class="service-item">
+          <div class="si-icon purple">🔧</div>
+          <div>
+            <h4>Contract &amp; Ad-Hoc Engineering</h4>
+            <p>Already have IT support but not getting what you need? Bring in a SouthByte engineer on a flexible half-day or day rate — no long-term commitment required.</p>
+          </div>
+        </div>
+
       </div>
     </div>
 
   </div>
 
-  <!-- FREE ADVICE BANNER -->
   <div class="advice-banner">
     <div class="advice-banner-text">
       <h4>Not sure where to start? Get free advice.</h4>
@@ -283,43 +264,64 @@
   </div>
 </section>
 
+<!-- ABOUT -->
 <section id="about">
   <div class="about-grid">
     <div>
       <p class="section-label">Why choose us</p>
-      <h2 class="section-title">Local. Honest. Reliable.</h2>
-      <p class="section-sub">We're a South Coast IT company built on straight talking and genuine service. When you call us, you speak to the people actually doing the work — no middlemen, no surprises on the invoice.</p>
+      <h2 class="section-title">Your IT partner. Not just a repair shop.</h2>
+      <p class="section-sub">SouthByte is built around long-term relationships and genuine accountability. When something goes wrong — or you want to get ahead of problems — we're the team that picks up the phone.</p>
       <div class="about-points">
         <div class="about-point">
           <div class="point-dot"></div>
-          <div><strong>Plain English, no tech jargon</strong><span>We explain everything clearly so you always know what's going on and why.</span></div>
+          <div>
+            <strong>Security-first, always</strong>
+            <span>We design, build and manage IT environments with security at the core — from endpoint protection to ISO 27001 and BSI compliance support.</span>
+          </div>
         </div>
         <div class="about-point">
           <div class="point-dot"></div>
-          <div><strong>Upfront, honest pricing</strong><span>You'll always get a clear quote before any work begins. No hidden extras, ever.</span></div>
+          <div>
+            <strong>Plain English, no jargon</strong>
+            <span>We explain everything clearly so you always understand what's happening, why, and what it costs.</span>
+          </div>
         </div>
         <div class="about-point">
           <div class="point-dot"></div>
-          <div><strong>Home &amp; business visits</strong><span>We come to you — whether it's your living room or your office, across the South Coast.</span></div>
+          <div>
+            <strong>Upfront, honest pricing</strong>
+            <span>You'll always receive a clear quote before work begins. No hidden extras — ever.</span>
+          </div>
         </div>
         <div class="about-point">
           <div class="point-dot"></div>
-          <div><strong>Remote support available</strong><span>Quick fix? We can often sort it remotely — saving you time and getting you back up and running faster.</span></div>
+          <div>
+            <strong>On-site or remote, nationwide</strong>
+            <span>We visit your premises anywhere in the UK, or connect remotely — whatever gets you sorted fastest.</span>
+          </div>
         </div>
       </div>
     </div>
-    <div class="about-visual">
-      <p class="av-title">Our coverage area</p>
-      <div class="coverage-item"><div class="coverage-icon">🏖️</div><span>Southampton &amp; surrounds</span></div>
-      <div class="coverage-item"><div class="coverage-icon">⛵</div><span>Portsmouth &amp; surrounds</span></div>
-      <div class="coverage-item"><div class="coverage-icon">🌊</div><span>Bournemouth &amp; Poole</span></div>
-      <div class="coverage-item"><div class="coverage-icon">🏡</div><span>New Forest villages</span></div>
-      <div class="coverage-item"><div class="coverage-icon">💻</div><span>Nationwide via remote support</span></div>
-      <div class="coverage-badge">🗺️ Not sure? Just ask — we'll let you know.</div>
+
+    <div class="uk-map-panel">
+      <p class="av-title">Serving the whole of the UK</p>
+      <p class="av-sub">On-site visits, remote support &amp; fully managed services — nationwide.</p>
+      <div class="uk-svg-wrap">
+        <div id="northeurope-map" style="width:100%;aspect-ratio:3/4;border-radius:12px;overflow:hidden;background:#bbdefb;"></div>
+      </div>
+      <div class="uk-map-badges">
+        <span class="uk-badge">🏙️ London &amp; South East</span>
+        <span class="uk-badge">🌿 Midlands</span>
+        <span class="uk-badge">🏔️ North &amp; Scotland</span>
+        <span class="uk-badge">🌊 South Coast</span>
+        <span class="uk-badge">💻 Remote — anywhere</span>
+      </div>
+      <div class="coverage-badge">🗺️ Wherever you are — we can help.</div>
     </div>
   </div>
 </section>
 
+<!-- CONTACT -->
 <section id="contact">
   <div class="contact-inner">
     <div class="contact-text">
@@ -329,51 +331,182 @@
       <div class="contact-methods">
         <div class="contact-method">
           <div class="cm-icon">✉️</div>
-          <div class="cm-text"><strong>Email</strong><span>info@southbyte.co.uk</span></div>
+          <div class="cm-text">
+            <strong>General &amp; Home Enquiries</strong>
+            <a href="mailto:info@southbyte.co.uk">info@southbyte.co.uk</a>
+          </div>
+        </div>
+        <div class="contact-method">
+          <div class="cm-icon">🏢</div>
+          <div class="cm-text">
+            <strong>Business &amp; Managed IT</strong>
+            <a href="mailto:business@southbyte.co.uk">business@southbyte.co.uk</a>
+          </div>
         </div>
         <div class="contact-method">
           <div class="cm-icon">🕐</div>
-          <div class="cm-text"><strong>Hours</strong><span>Mon–Sat, 8am–7pm</span></div>
+          <div class="cm-text">
+            <strong>Hours</strong>
+            <span>Mon–Sat, 8am–7pm</span>
+          </div>
         </div>
       </div>
     </div>
     <div class="contact-form">
       <div class="form-row">
-        <div class="form-group"><label>Name</label><input type="text" placeholder="Your name"></div>
-        <div class="form-group"><label>Phone</label><input type="tel" placeholder="07..."></div>
+        <div class="form-group">
+          <label for="f-name">Name</label>
+          <input id="f-name" type="text" placeholder="Your name" autocomplete="name">
+        </div>
+        <div class="form-group">
+          <label for="f-phone">Phone</label>
+          <input id="f-phone" type="tel" placeholder="07..." autocomplete="tel">
+        </div>
       </div>
-      <div class="form-group"><label>Email</label><input type="email" placeholder="you@email.com"></div>
       <div class="form-group">
-        <label>Service needed</label>
-        <select>
+        <label for="f-email">Email</label>
+        <input id="f-email" type="email" placeholder="you@email.com" autocomplete="email">
+      </div>
+      <div class="form-group">
+        <label for="f-service">Service needed</label>
+        <select id="f-service">
           <option value="">– Select a service –</option>
           <optgroup label="Home">
             <option>PC Repair / Tune-Up</option>
             <option>Gaming PC Build or Fix</option>
             <option>Home Wi-Fi or Broadband</option>
             <option>Home CCTV</option>
+            <option>Remote Support</option>
             <option>Teaching &amp; Advice</option>
           </optgroup>
           <optgroup label="Business">
+            <option>Fully Managed IT Service</option>
+            <option>Business IT Partner / Cloud Services</option>
+            <option>Contract / Ad-Hoc Engineering</option>
             <option>Website Build or Setup</option>
-            <option>Domain / Hosting / Email</option>
-            <option>Office Wi-Fi / Networking / Security</option>
-            <option>Workstation or Server Management</option>
+            <option>Domain / Hosting / Infrastructure</option>
+            <option>Office Networks / Wi-Fi / Security</option>
           </optgroup>
           <option>Something else</option>
         </select>
       </div>
-      <div class="form-group"><label>Tell us more</label><textarea placeholder="Brief description of the issue or what you need..."></textarea></div>
-      <button class="form-submit">Send Message →</button>
+      <div class="form-group">
+        <label for="f-message">Tell us more</label>
+        <textarea id="f-message" placeholder="Brief description of the issue or what you need..."></textarea>
+      </div>
+      <button class="form-submit" type="button">Send Message →</button>
     </div>
   </div>
 </section>
 
 <footer>
   <div class="footer-logo">South<span>Byte</span></div>
-  <p>© 2025 SouthByte · South Coast, UK · All rights reserved</p>
-  <p style="font-size:0.8rem; color:rgba(255,255,255,0.3);">Friendly local IT support</p>
+  <p>© 2025 SouthByte · United Kingdom · All rights reserved</p>
+  <p style="font-size:0.8rem;color:rgba(255,255,255,0.3);">IT Support &amp; Managed Services</p>
 </footer>
 
+<script>
+  function openModal(id) { document.getElementById(id).classList.add('open'); }
+  function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+  document.getElementById('pricingBtn').addEventListener('click', () => openModal('pricingModal'));
+  document.getElementById('pricingClose').addEventListener('click', () => closeModal('pricingModal'));
+  document.getElementById('pricingModal').addEventListener('click', function(e) { if (e.target === this) closeModal('pricingModal'); });
+
+  document.getElementById('mspTrigger').addEventListener('click', () => openModal('mspModal'));
+  document.getElementById('mspClose').addEventListener('click', () => closeModal('mspModal'));
+  document.getElementById('mspModal').addEventListener('click', function(e) { if (e.target === this) closeModal('mspModal'); });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
+<script>
+(async function() {
+  const container = document.getElementById('northeurope-map');
+  if (!container) return;
+
+  const W = container.offsetWidth || 360;
+  const H = Math.round(W * 1.33);
+  container.style.height = H + 'px';
+
+  const svg = d3.select(container).append('svg')
+    .attr('width', W).attr('height', H)
+    .style('display','block');
+
+  svg.append('rect').attr('width', W).attr('height', H).attr('fill', '#bbdefb');
+
+  const UK_CODES = ['GBR','IRL'];
+  const HIGHLIGHT = ['GBR'];
+
+  const world = await d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json');
+  const countries = topojson.feature(world, world.objects.countries);
+
+  const countryId = {
+    '826': 'GBR', '372': 'IRL', '276': 'DEU', '208': 'DNK',
+    '578': 'NOR', '752': 'SWE', '246': 'FIN', '528': 'NLD',
+    '056': 'BEL', '250': 'FRA', '616': 'POL', '233': 'EST',
+    '428': 'LVA', '440': 'LTU', '203': 'CZE', '040': 'AUT',
+    '756': 'CHE', '724': 'ESP', '620': 'PRT', '380': 'ITA',
+  };
+
+  const visible = new Set(['826','372','276','208','578','752','246','528','056','250','616','233','428','440','203','040','756','724','620','380']);
+
+  const filtered = {
+    type: 'FeatureCollection',
+    features: countries.features.filter(f => visible.has(String(f.id).padStart(3,'0')))
+  };
+
+  const projection = d3.geoMercator()
+    .center([-4, 55])
+    .scale(W * 3.2)
+    .translate([W * 0.52, H * 0.52]);
+
+  const path = d3.geoPath().projection(projection);
+
+  svg.selectAll('path.country')
+    .data(filtered.features)
+    .join('path')
+    .attr('class', 'country')
+    .attr('d', path)
+    .attr('fill', d => {
+      const code = String(d.id).padStart(3,'0');
+      if (code === '826') return '#c0392b';
+      if (code === '372') return '#c8dff0';
+      return '#d4e8f4';
+    })
+    .attr('stroke', d => {
+      const code = String(d.id).padStart(3,'0');
+      return code === '826' ? '#922b21' : '#9ab8cc';
+    })
+    .attr('stroke-width', d => String(d.id).padStart(3,'0') === '826' ? 1 : 0.5);
+
+  const cities = [
+    { name: 'London', lat: 51.5, lon: -0.12, pulse: true },
+    { name: 'Manchester', lat: 53.48, lon: -2.24 },
+    { name: 'Edinburgh', lat: 55.95, lon: -3.19 },
+    { name: 'Cardiff', lat: 51.48, lon: -3.18 },
+  ];
+
+  cities.forEach(c => {
+    const [x, y] = projection([c.lon, c.lat]);
+    if (c.pulse) {
+      svg.append('circle').attr('cx', x).attr('cy', y).attr('r', 10)
+        .attr('fill', 'none').attr('stroke', '#fff').attr('stroke-width', 1.5).attr('opacity', 0.35);
+    }
+    svg.append('circle').attr('cx', x).attr('cy', y)
+      .attr('r', c.pulse ? 5 : 3.5)
+      .attr('fill', '#fff').attr('stroke', '#922b21').attr('stroke-width', 1.5);
+  });
+
+  svg.append('text')
+    .attr('x', W * 0.52).attr('y', H * 0.88)
+    .attr('text-anchor', 'middle')
+    .attr('font-family', 'Nunito, sans-serif')
+    .attr('font-size', '11').attr('font-weight', '800')
+    .attr('fill', '#922b21').attr('letter-spacing', '1')
+    .text('UK');
+})();
+</script>
 </body>
 </html>
