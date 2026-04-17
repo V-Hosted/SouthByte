@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head> 
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="SouthByte – Nationwide IT support and managed services for homes and businesses. PC repair, fully managed IT, cloud, security compliance and more.">
@@ -307,7 +307,7 @@
       <p class="av-title">Serving the whole of the UK</p>
       <p class="av-sub">On-site visits, remote support &amp; fully managed services — nationwide.</p>
       <div class="uk-svg-wrap">
-        <div id="northeurope-map" style="width:100%;aspect-ratio:3/4;border-radius:12px;overflow:hidden;background:#bbdefb;"></div>
+        <div id="northeurope-map" style="width:100%;border-radius:12px;overflow:hidden;"></div>
       </div>
       <div class="uk-map-badges">
         <span class="uk-badge">🏙️ London &amp; South East</span>
@@ -426,86 +426,76 @@
   const container = document.getElementById('northeurope-map');
   if (!container) return;
 
-  const W = container.offsetWidth || 360;
-  const H = Math.round(W * 1.33);
-  container.style.height = H + 'px';
+  // Use a fixed internal canvas size; CSS scales it to fit the panel
+  const W = 400;
+  const H = 540;
+
+  container.style.height = '';   // let CSS handle height via aspect-ratio
+  container.style.aspectRatio = '400 / 540';
 
   const svg = d3.select(container).append('svg')
-    .attr('width', W).attr('height', H)
-    .style('display','block');
+    .attr('viewBox', '0 0 ' + W + ' ' + H)
+    .attr('preserveAspectRatio', 'xMidYMid meet')
+    .style('width', '100%')
+    .style('height', '100%')
+    .style('display', 'block');
 
-  svg.append('rect').attr('width', W).attr('height', H).attr('fill', '#bbdefb');
+  svg.append('rect').attr('width', W).attr('height', H).attr('fill', '#bbdefb').attr('rx', 12);
 
-  const UK_CODES = ['GBR','IRL'];
-  const HIGHLIGHT = ['GBR'];
+  const UK_ID = '826';
+  const SHOW  = new Set(['826','372','276','208','578','752','528','056','250']);
 
-  const world = await d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json');
-  const countries = topojson.feature(world, world.objects.countries);
+  const world = await d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json');
+  const allFeatures = topojson.feature(world, world.objects.countries).features;
 
-  const countryId = {
-    '826': 'GBR', '372': 'IRL', '276': 'DEU', '208': 'DNK',
-    '578': 'NOR', '752': 'SWE', '246': 'FIN', '528': 'NLD',
-    '056': 'BEL', '250': 'FRA', '616': 'POL', '233': 'EST',
-    '428': 'LVA', '440': 'LTU', '203': 'CZE', '040': 'AUT',
-    '756': 'CHE', '724': 'ESP', '620': 'PRT', '380': 'ITA',
-  };
+  const ukFeature = allFeatures.find(f => String(f.id).padStart(3,'0') === UK_ID);
 
-  const visible = new Set(['826','372','276','208','578','752','246','528','056','250','616','233','428','440','203','040','756','724','620','380']);
-
-  const filtered = {
-    type: 'FeatureCollection',
-    features: countries.features.filter(f => visible.has(String(f.id).padStart(3,'0')))
-  };
-
+  const pad = 28;
   const projection = d3.geoMercator()
-    .center([-4, 55])
-    .scale(W * 3.2)
-    .translate([W * 0.52, H * 0.52]);
-
+    .fitExtent([[pad, pad], [W - pad, H - pad]], ukFeature);
   const path = d3.geoPath().projection(projection);
 
-  svg.selectAll('path.country')
-    .data(filtered.features)
-    .join('path')
-    .attr('class', 'country')
-    .attr('d', path)
-    .attr('fill', d => {
-      const code = String(d.id).padStart(3,'0');
-      if (code === '826') return '#c0392b';
-      if (code === '372') return '#c8dff0';
-      return '#d4e8f4';
-    })
-    .attr('stroke', d => {
-      const code = String(d.id).padStart(3,'0');
-      return code === '826' ? '#922b21' : '#9ab8cc';
-    })
-    .attr('stroke-width', d => String(d.id).padStart(3,'0') === '826' ? 1 : 0.5);
+  // Background countries
+  const bgFeatures = allFeatures.filter(f => {
+    const c = String(f.id).padStart(3,'0');
+    return SHOW.has(c) && c !== UK_ID;
+  });
 
+  svg.selectAll('path.bg')
+    .data(bgFeatures)
+    .join('path')
+    .attr('d', path)
+    .attr('fill', '#c8dff0')
+    .attr('stroke', '#a0c4de')
+    .attr('stroke-width', 0.6);
+
+  // UK highlighted
+  svg.append('path')
+    .datum(ukFeature)
+    .attr('d', path)
+    .attr('fill', '#c0392b')
+    .attr('stroke', '#922b21')
+    .attr('stroke-width', 1.2);
+
+  // City dots
   const cities = [
-    { name: 'London', lat: 51.5, lon: -0.12, pulse: true },
-    { name: 'Manchester', lat: 53.48, lon: -2.24 },
-    { name: 'Edinburgh', lat: 55.95, lon: -3.19 },
-    { name: 'Cardiff', lat: 51.48, lon: -3.18 },
+    { lat: 51.50, lon: -0.12,  pulse: true  },
+    { lat: 53.48, lon: -2.24,  pulse: false },
+    { lat: 55.95, lon: -3.19,  pulse: false },
+    { lat: 51.48, lon: -3.18,  pulse: false },
   ];
 
   cities.forEach(c => {
     const [x, y] = projection([c.lon, c.lat]);
+    if (x < 0 || x > W || y < 0 || y > H) return;
     if (c.pulse) {
-      svg.append('circle').attr('cx', x).attr('cy', y).attr('r', 10)
-        .attr('fill', 'none').attr('stroke', '#fff').attr('stroke-width', 1.5).attr('opacity', 0.35);
+      svg.append('circle').attr('cx', x).attr('cy', y).attr('r', 11)
+        .attr('fill', 'none').attr('stroke', '#fff').attr('stroke-width', 1.5).attr('opacity', 0.4);
     }
     svg.append('circle').attr('cx', x).attr('cy', y)
       .attr('r', c.pulse ? 5 : 3.5)
       .attr('fill', '#fff').attr('stroke', '#922b21').attr('stroke-width', 1.5);
   });
-
-  svg.append('text')
-    .attr('x', W * 0.52).attr('y', H * 0.88)
-    .attr('text-anchor', 'middle')
-    .attr('font-family', 'Nunito, sans-serif')
-    .attr('font-size', '11').attr('font-weight', '800')
-    .attr('fill', '#922b21').attr('letter-spacing', '1')
-    .text('UK');
 })();
 </script>
 </body>

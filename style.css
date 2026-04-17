@@ -3,7 +3,6 @@
   margin: 0;
   padding: 0;
 }
-
 :root {
   --navy: #0a1628;
   --mid: #0d2b55;
@@ -17,15 +16,12 @@
   --white: #ffffff;
   --radius: 14px;
 }
-
 html { scroll-behavior: smooth; }
-
 body {
   font-family: 'Nunito', sans-serif;
   color: var(--text);
   background: var(--white);
 }
-
 nav {
   position: sticky;
   top: 0;
@@ -38,7 +34,6 @@ nav {
   height: 66px;
   border-bottom: 1px solid rgba(41,182,246,0.15);
 }
-
 .nav-logo {
   font-family: 'DM Serif Display', serif;
   font-size: 1.4rem;
@@ -46,15 +41,12 @@ nav {
   letter-spacing: 0.5px;
   text-decoration: none;
 }
-
 .nav-logo span { color: var(--bright); }
-
 .nav-links {
   display: flex;
   gap: 28px;
   list-style: none;
 }
-
 .nav-links a {
   color: rgba(255,255,255,0.75);
   text-decoration: none;
@@ -62,15 +54,12 @@ nav {
   font-weight: 600;
   transition: color 0.2s;
 }
-
 .nav-links a:hover { color: var(--bright); }
-
 .nav-right {
   display: flex;
   align-items: center;
   gap: 12px;
 }
-
 .nav-pricing-btn {
   background: transparent;
   color: var(--bright);
@@ -83,12 +72,10 @@ nav {
   cursor: pointer;
   transition: background 0.2s, border-color 0.2s;
 }
-
 .nav-pricing-btn:hover {
   background: rgba(41,182,246,0.1);
   border-color: var(--bright);
 }
-
 .nav-cta {
   background: var(--coral);
   color: var(--white);
@@ -101,7 +88,6 @@ nav {
   cursor: pointer;
   transition: opacity 0.2s;
 }
-
 .nav-cta:hover { opacity: 0.88; }
 
 .modal-overlay {
@@ -114,9 +100,7 @@ nav {
   justify-content: center;
   padding: 20px;
 }
-
 .modal-overlay.open { display: flex; }
-
 .modal {
   background: var(--navy);
   border: 1px solid rgba(41,182,246,0.25);
@@ -128,7 +112,6 @@ nav {
   max-height: 90vh;
   overflow-y: auto;
 }
-
 .modal-close {
   position: absolute;
   top: 16px;
@@ -141,22 +124,18 @@ nav {
   line-height: 1;
   transition: color 0.2s;
 }
-
 .modal-close:hover { color: var(--white); }
-
 .modal h2 {
   font-family: 'DM Serif Display', serif;
   font-size: 1.7rem;
   color: var(--white);
   margin-bottom: 6px;
 }
-
 .modal-sub {
   color: rgba(255,255,255,0.55);
   font-size: 0.9rem;
   margin-bottom: 28px;
 }
-
 .modal-note {
   margin-top: 22px;
   background: rgba(41,182,246,0.08);
@@ -166,13 +145,11 @@ nav {
   font-size: 0.85rem;
   color: rgba(255,255,255,0.6);
 }
-
 .pricing-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 28px;
 }
-
 .pricing-col h3 {
   font-family: 'DM Serif Display', serif;
   font-size: 1.15rem;
@@ -181,7 +158,6 @@ nav {
   padding-bottom: 10px;
   border-bottom: 1px solid rgba(41,182,246,0.2);
 }
-
 .pricing-row {
   display: flex;
   justify-content: space-between;
@@ -190,21 +166,17 @@ nav {
   border-bottom: 1px solid rgba(255,255,255,0.06);
   gap: 12px;
 }
-
 .pricing-row:last-child { border-bottom: none; }
-
 .p-label {
   font-size: 0.88rem;
   color: rgba(255,255,255,0.7);
 }
-
 .p-price {
   font-size: 0.95rem;
   font-weight: 700;
   color: var(--white);
   white-space: nowrap;
 }
-
 .pricing-contact {
   margin-top: 16px;
   background: rgba(41,182,246,0.07);
@@ -215,38 +187,31 @@ nav {
   align-items: center;
   gap: 12px;
 }
-
 .pricing-contact .pc-icon { font-size: 1.3rem; }
-
 .pricing-contact p {
   font-size: 0.85rem;
   color: rgba(255,255,255,0.65);
   line-height: 1.5;
 }
-
 .pricing-contact p strong {
   display: block;
   color: var(--bright);
   font-size: 0.9rem;
   margin-bottom: 2px;
 }
-
 .pricing-contact a {
   color: var(--bright);
   text-decoration: none;
 }
-
 .pricing-contact a:hover { text-decoration: underline; }
 
 .msp-modal { max-width: 640px; }
-
 .msp-intro {
   color: rgba(255,255,255,0.65);
   font-size: 0.92rem;
   line-height: 1.65;
   margin-bottom: 22px;
 }
-
 .msp-security-note {
   background: linear-gradient(135deg, rgba(21,101,192,0.2) 0%, rgba(41,182,246,0.08) 100%);
   border: 1px solid rgba(41,182,246,0.3);
@@ -254,22 +219,18 @@ nav {
   padding: 16px 18px;
   margin-bottom: 20px;
 }
-
 .msp-security-note p {
   font-size: 0.88rem;
   color: rgba(255,255,255,0.75);
   line-height: 1.6;
 }
-
 .msp-security-note p strong { color: var(--bright); }
-
 .msp-tags {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
   margin-bottom: 20px;
 }
-
 .mtag {
   font-size: 0.82rem;
   font-weight: 600;
@@ -289,14 +250,12 @@ nav {
   align-items: center;
   min-height: 520px;
 }
-
 .hero-eyebrow {
   display: flex;
   align-items: center;
   gap: 10px;
   margin-bottom: 18px;
 }
-
 .hero-eyebrow span {
   font-size: 0.82rem;
   font-weight: 700;
@@ -304,7 +263,6 @@ nav {
   text-transform: uppercase;
   color: var(--bright);
 }
-
 .hero-eyebrow::after {
   content: '';
   flex: 1;
@@ -312,7 +270,6 @@ nav {
   height: 1px;
   background: rgba(41,182,246,0.4);
 }
-
 .hero-text h1 {
   font-family: 'DM Serif Display', serif;
   font-size: clamp(2.2rem, 4vw, 3.2rem);
@@ -320,9 +277,7 @@ nav {
   line-height: 1.2;
   margin-bottom: 20px;
 }
-
 .hero-text h1 em { color: var(--bright); font-style: italic; }
-
 .hero-text p {
   color: rgba(255,255,255,0.75);
   font-size: 1.05rem;
@@ -330,7 +285,6 @@ nav {
   margin-bottom: 32px;
   max-width: 440px;
 }
-
 .hero-buttons { display: flex; gap: 14px; flex-wrap: wrap; }
 
 .btn-primary {
@@ -347,7 +301,6 @@ nav {
   text-decoration: none;
   display: inline-block;
 }
-
 .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
 
 .btn-outline {
@@ -364,7 +317,6 @@ nav {
   text-decoration: none;
   display: inline-block;
 }
-
 .btn-outline:hover { border-color: var(--bright); background: rgba(41,182,246,0.08); }
 
 .hero-visual {
@@ -373,12 +325,10 @@ nav {
   gap: 12px;
   animation: floatUp 0.7s ease both;
 }
-
 @keyframes floatUp {
   from { opacity: 0; transform: translateY(22px); }
-  to   { opacity: 1; transform: translateY(0); }
+  to { opacity: 1; transform: translateY(0); }
 }
-
 .trust-pill {
   background: rgba(255,255,255,0.07);
   border: 1px solid rgba(41,182,246,0.25);
@@ -391,11 +341,8 @@ nav {
   align-items: center;
   gap: 10px;
 }
-
 .trust-pill .icon { font-size: 1.1rem; }
-
 .stats-row { display: flex; gap: 12px; margin-top: 8px; }
-
 .stat-card {
   flex: 1;
   background: rgba(255,255,255,0.08);
@@ -404,13 +351,11 @@ nav {
   padding: 16px 14px;
   text-align: center;
 }
-
 .stat-card .num {
   font-family: 'DM Serif Display', serif;
   font-size: 1.8rem;
   color: var(--bright);
 }
-
 .stat-card .label {
   font-size: 0.8rem;
   color: rgba(255,255,255,0.65);
@@ -418,7 +363,6 @@ nav {
 }
 
 section { padding: 80px 5%; }
-
 .section-label {
   font-size: 0.8rem;
   font-weight: 700;
@@ -427,14 +371,12 @@ section { padding: 80px 5%; }
   color: var(--sea);
   margin-bottom: 10px;
 }
-
 .section-title {
   font-family: 'DM Serif Display', serif;
   font-size: clamp(1.8rem, 3vw, 2.5rem);
   color: var(--navy);
   margin-bottom: 14px;
 }
-
 .section-sub {
   color: var(--muted);
   font-size: 1rem;
@@ -443,7 +385,6 @@ section { padding: 80px 5%; }
 }
 
 #services { background: var(--sand); }
-
 .services-header { text-align: center; margin-bottom: 52px; }
 .services-header .section-sub { margin: 0 auto; }
 
@@ -452,14 +393,12 @@ section { padding: 80px 5%; }
   grid-template-columns: 1fr 1fr;
   gap: 32px;
 }
-
 .service-group {
   background: var(--white);
   border-radius: 20px;
   border: 1.5px solid #dde8f5;
   overflow: hidden;
 }
-
 .service-group-header {
   padding: 22px 28px 18px;
   border-bottom: 1.5px solid #dde8f5;
@@ -467,7 +406,6 @@ section { padding: 80px 5%; }
   align-items: center;
   gap: 14px;
 }
-
 .group-icon {
   width: 44px;
   height: 44px;
@@ -478,20 +416,16 @@ section { padding: 80px 5%; }
   font-size: 1.3rem;
   flex-shrink: 0;
 }
-
 .group-icon.home { background: #dbeeff; }
-.group-icon.biz  { background: #d4f4ec; }
-
+.group-icon.biz { background: #d4f4ec; }
 .service-group-header h3 {
   font-family: 'DM Serif Display', serif;
   font-size: 1.3rem;
   color: var(--navy);
 }
-
 .service-group-header p { font-size: 0.85rem; color: var(--muted); margin-top: 2px; }
 
 .service-list { padding: 10px 0; }
-
 .service-item {
   display: flex;
   gap: 14px;
@@ -500,7 +434,6 @@ section { padding: 80px 5%; }
   border-bottom: 1px solid #f0f5fb;
   transition: background 0.15s;
 }
-
 .service-item:last-child { border-bottom: none; }
 .service-item:hover { background: #f8fbff; }
 
@@ -515,17 +448,16 @@ section { padding: 80px 5%; }
   flex-shrink: 0;
   margin-top: 1px;
 }
-
-.si-icon.blue   { background: #dbeeff; }
-.si-icon.teal   { background: #d4f4ec; }
-.si-icon.coral  { background: #fde8e2; }
-.si-icon.amber  { background: #fef3da; }
+.si-icon.blue { background: #dbeeff; }
+.si-icon.teal { background: #d4f4ec; }
+.si-icon.coral { background: #fde8e2; }
+.si-icon.amber { background: #fef3da; }
 .si-icon.purple { background: #ede9fe; }
-.si-icon.green  { background: #dcfce7; }
+.si-icon.green { background: #dcfce7; }
 .si-icon.indigo { background: #e0e7ff; }
 
 .service-item h4 { font-size: 0.95rem; font-weight: 700; color: var(--navy); margin-bottom: 3px; }
-.service-item p  { font-size: 0.85rem; color: var(--muted); line-height: 1.55; }
+.service-item p { font-size: 0.85rem; color: var(--muted); line-height: 1.55; }
 
 .btn-msp {
   display: inline-flex;
@@ -543,7 +475,6 @@ section { padding: 80px 5%; }
   cursor: pointer;
   transition: opacity 0.2s;
 }
-
 .btn-msp:hover { opacity: 0.85; }
 
 .advice-banner {
@@ -557,14 +488,12 @@ section { padding: 80px 5%; }
   gap: 24px;
   flex-wrap: wrap;
 }
-
 .advice-banner-text h4 {
   font-family: 'DM Serif Display', serif;
   font-size: 1.25rem;
   color: var(--white);
   margin-bottom: 6px;
 }
-
 .advice-banner-text p { font-size: 0.9rem; color: rgba(255,255,255,0.72); }
 .advice-banner-text p strong { color: var(--bright); }
 
@@ -584,22 +513,17 @@ section { padding: 80px 5%; }
   gap: 8px;
   transition: opacity 0.2s;
 }
-
 .whatsapp-btn:hover { opacity: 0.88; }
 
 #about { background: var(--white); }
-
 .about-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 70px;
   align-items: center;
 }
-
 .about-points { display: flex; flex-direction: column; gap: 20px; margin-top: 28px; }
-
 .about-point { display: flex; gap: 14px; }
-
 .point-dot {
   width: 10px;
   height: 10px;
@@ -608,9 +532,8 @@ section { padding: 80px 5%; }
   flex-shrink: 0;
   margin-top: 7px;
 }
-
 .about-point strong { display: block; font-weight: 700; color: var(--navy); margin-bottom: 3px; }
-.about-point span   { font-size: 0.92rem; color: var(--muted); line-height: 1.6; }
+.about-point span { font-size: 0.92rem; color: var(--muted); line-height: 1.6; }
 
 .uk-map-panel {
   background: linear-gradient(145deg, var(--sky) 0%, #bbdefb 100%);
@@ -619,28 +542,36 @@ section { padding: 80px 5%; }
   border: 1.5px solid #90caf9;
   text-align: center;
 }
-
 .av-title {
   font-family: 'DM Serif Display', serif;
   font-size: 1.35rem;
   color: var(--navy);
   margin-bottom: 4px;
 }
-
 .av-sub { font-size: 0.88rem; color: var(--muted); margin-bottom: 20px; }
 
-.uk-svg-wrap { display: flex; justify-content: center; margin-bottom: 16px; }
-
-.uk-svg-wrap svg {
+/* ✅ UK MAP — FIXED + SMALLER (Option 1 + reduced size) */
+.uk-svg-wrap{
+  display: flex;
+  justify-content: center;
   width: 100%;
-  max-width: 420px;
-  height: auto;
+  margin-bottom: 16px;
 }
 
-.uk-svg-wrap > div {
+/* The injected container div */
+#northeurope-map{
   width: 100%;
+  max-width: 340px;        /* smaller than before (was effectively 420px) */
+  aspect-ratio: 360 / 420; /* matches new JS canvas size */
   border-radius: 12px;
   overflow: hidden;
+}
+
+/* SVG fills the container; no auto-height conflicts */
+#northeurope-map svg{
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
 .uk-map-badges {
@@ -650,7 +581,6 @@ section { padding: 80px 5%; }
   justify-content: center;
   margin-top: 12px;
 }
-
 .uk-badge {
   background: var(--white);
   border: 1px solid #90caf9;
@@ -660,7 +590,6 @@ section { padding: 80px 5%; }
   font-weight: 600;
   color: var(--navy);
 }
-
 .coverage-badge {
   margin-top: 16px;
   background: var(--navy);
@@ -673,23 +602,18 @@ section { padding: 80px 5%; }
 }
 
 #contact { background: var(--navy); }
-
 .contact-inner {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 70px;
   align-items: start;
 }
-
 .contact-text .section-title { color: var(--white); }
 .contact-text .section-label { color: var(--bright); }
-
 .contact-text p { color: rgba(255,255,255,0.7); line-height: 1.7; margin-bottom: 28px; }
 
 .contact-methods { display: flex; flex-direction: column; gap: 14px; }
-
 .contact-method { display: flex; align-items: center; gap: 14px; }
-
 .cm-icon {
   width: 40px;
   height: 40px;
@@ -702,10 +626,9 @@ section { padding: 80px 5%; }
   font-size: 1.1rem;
   flex-shrink: 0;
 }
-
 .cm-text strong { display: block; color: var(--white); font-size: 0.9rem; margin-bottom: 1px; }
-.cm-text span   { color: rgba(255,255,255,0.6); font-size: 0.88rem; }
-.cm-text a      { color: var(--bright); text-decoration: none; font-size: 0.88rem; }
+.cm-text span { color: rgba(255,255,255,0.6); font-size: 0.88rem; }
+.cm-text a { color: var(--bright); text-decoration: none; font-size: 0.88rem; }
 .cm-text a:hover { text-decoration: underline; }
 
 .contact-form {
@@ -714,9 +637,7 @@ section { padding: 80px 5%; }
   border-radius: var(--radius);
   padding: 32px 28px;
 }
-
 .form-group { margin-bottom: 16px; }
-
 .form-group label {
   display: block;
   font-size: 0.83rem;
@@ -726,7 +647,6 @@ section { padding: 80px 5%; }
   letter-spacing: 0.5px;
   text-transform: uppercase;
 }
-
 .form-group input,
 .form-group select,
 .form-group textarea {
@@ -741,18 +661,13 @@ section { padding: 80px 5%; }
   outline: none;
   transition: border-color 0.2s;
 }
-
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus { border-color: var(--bright); }
-
 .form-group input::placeholder,
 .form-group textarea::placeholder { color: rgba(255,255,255,0.3); }
-
 .form-group select option { background: var(--navy); color: var(--white); }
-
 .form-group textarea { resize: vertical; min-height: 90px; }
-
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 
 .form-submit {
@@ -769,7 +684,6 @@ section { padding: 80px 5%; }
   margin-top: 4px;
   transition: opacity 0.2s;
 }
-
 .form-submit:hover { opacity: 0.88; }
 
 footer {
@@ -781,7 +695,6 @@ footer {
   flex-wrap: wrap;
   gap: 12px;
 }
-
 .footer-logo { font-family: 'DM Serif Display', serif; font-size: 1.1rem; color: var(--white); }
 .footer-logo span { color: var(--bright); }
 footer p { font-size: 0.82rem; color: rgba(255,255,255,0.4); }
