@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body>
 
@@ -33,6 +34,17 @@
     <button class="modal-close" id="pricingClose">&times;</button>
     <h2>Get Help Now</h2>
     <p class="modal-sub">Choose how you'd like us to help. No fuss, no commitment — just straightforward IT support.</p>
+
+    <div class="ticket-cta-bar">
+      <div class="ticket-cta-text">
+        <span class="ticket-cta-icon">🚨</span>
+        <div>
+          <strong>Raise a case with us</strong>
+          <span>Not sure where to start? We'll triage it and get you sorted.</span>
+        </div>
+      </div>
+      <button class="ticket-cta-btn" id="openTicketForm">Raise a Ticket →</button>
+    </div>
 
     <div class="pricing-cols">
 
@@ -127,6 +139,85 @@
     </div>
 
     <p class="modal-note">All business rates exclude VAT. Fixed-price project quotes available on request — just ask.</p>
+
+  </div>
+</div>
+
+<!-- TICKET MODAL -->
+<div class="modal-overlay" id="ticketModal">
+  <div class="modal ticket-modal">
+    <button class="modal-close" id="ticketClose">&times;</button>
+
+    <!-- FORM VIEW -->
+    <div id="ticketFormView">
+      <div class="ticket-modal-header">
+        <div class="ticket-badge">🎫 Support Ticket</div>
+        <h2>Raise a Ticket</h2>
+        <p class="modal-sub">Fill in the details below and we'll get back to you — usually same day.</p>
+      </div>
+
+      <form id="ticketForm" action="https://formspree.io/f/xlgapanp" method="POST" enctype="multipart/form-data">
+        <div class="ticket-fields">
+
+          <div class="ticket-field-group">
+            <label for="t-name">Your name</label>
+            <input id="t-name" type="text" name="name" placeholder="Jane Smith" required autocomplete="name">
+          </div>
+
+          <div class="ticket-field-group">
+            <label for="t-email">Your email</label>
+            <input id="t-email" type="email" name="email" placeholder="you@email.com" required autocomplete="email">
+          </div>
+
+          <div class="ticket-field-group">
+            <label for="t-subject">Subject</label>
+            <input id="t-subject" type="text" name="subject_line" placeholder="Brief description of the issue" required>
+          </div>
+
+          <div class="ticket-field-group">
+            <label for="t-detail">Tell us more</label>
+            <textarea id="t-detail" name="details" placeholder="What's happening? Any error messages, affected devices, or anything else that might help us..." required></textarea>
+          </div>
+
+          <div class="ticket-field-group">
+            <label>Attachment <span class="ticket-label-optional">optional — screenshot, error log, etc.</span></label>
+            <label class="ticket-file-label" id="ticketFileLabel" for="t-attachment">
+              <span class="tfl-icon">📎</span>
+              <span class="tfl-text" id="tflText">Click to attach a file</span>
+              <span class="tfl-hint">PNG, JPG, PDF, DOCX up to 10MB</span>
+            </label>
+            <input id="t-attachment" type="file" name="attachment" accept=".png,.jpg,.jpeg,.pdf,.docx,.txt,.log" style="display:none">
+          </div>
+
+        </div>
+
+        <input type="hidden" name="subject" value="New Support Ticket – SouthByte">
+        <input type="hidden" name="ticket_ref" id="t-ref-hidden">
+        <input type="text" name="_gotcha" style="display:none">
+
+        <button type="submit" class="ticket-submit-btn" id="ticketSubmitBtn">
+          <span id="ticketBtnText">Submit Ticket →</span>
+        </button>
+
+        <p class="ticket-reassurance">🔒 Sent directly to our team — no bots, no call centres.</p>
+      </form>
+    </div>
+
+    <!-- SUCCESS VIEW -->
+    <div id="ticketSuccessView" style="display:none;">
+      <div class="ticket-success">
+        <div class="ticket-success-icon">✅</div>
+        <h2>Ticket Raised!</h2>
+        <p class="modal-sub">We've received your request and will be in touch shortly.</p>
+        <div class="ticket-ref-box">
+          <span class="ticket-ref-label">Your ticket reference</span>
+          <span class="ticket-ref-num" id="ticketRefDisplay"></span>
+        </div>
+        <p class="ticket-success-note">Keep this reference handy — quote it if you follow up with us by email or phone.</p>
+        <button class="ticket-done-btn" id="ticketDoneBtn">Done</button>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -462,7 +553,6 @@
   document.getElementById('pricingClose').addEventListener('click', () => closeModal('pricingModal'));
   document.getElementById('pricingModal').addEventListener('click', function(e) { if (e.target === this) closeModal('pricingModal'); });
 
-  // Close modal and scroll to contact when in-modal links used
   document.querySelectorAll('.po-action-modal').forEach(function(el) {
     el.addEventListener('click', function(e) {
       e.preventDefault();
@@ -470,6 +560,78 @@
       setTimeout(function() { document.getElementById('contact').scrollIntoView({behavior:'smooth'}); }, 200);
     });
   });
+
+  // ── TICKET MODAL ─────────────────────────────────────────────
+  function generateTicketRef() {
+    const now = new Date();
+    const y  = now.getFullYear();
+    const m  = String(now.getMonth() + 1).padStart(2, '0');
+    const d  = String(now.getDate()).padStart(2, '0');
+    const ms = String(now.getTime()).slice(-4);
+    return 'SB-' + y + m + d + '-' + ms;
+  }
+
+  function resetTicketModal() {
+    document.getElementById('ticketFormView').style.display = '';
+    document.getElementById('ticketSuccessView').style.display = 'none';
+    document.getElementById('ticketForm').reset();
+    document.getElementById('tflText').textContent = 'Click to attach a file';
+    document.getElementById('ticketFileLabel').classList.remove('tfl-has-file');
+    document.getElementById('ticketBtnText').textContent = 'Submit Ticket →';
+    document.getElementById('ticketSubmitBtn').disabled = false;
+  }
+
+  document.getElementById('openTicketForm').addEventListener('click', function(e) {
+    e.stopPropagation();
+    resetTicketModal();
+    closeModal('pricingModal');
+    setTimeout(function() { openModal('ticketModal'); }, 250);
+  });
+
+  document.getElementById('ticketClose').addEventListener('click', () => closeModal('ticketModal'));
+  document.getElementById('ticketModal').addEventListener('click', function(e) { if (e.target === this) closeModal('ticketModal'); });
+
+  document.getElementById('t-attachment').addEventListener('change', function() {
+    if (this.files && this.files[0]) {
+      document.getElementById('tflText').textContent = this.files[0].name;
+      document.getElementById('ticketFileLabel').classList.add('tfl-has-file');
+    } else {
+      document.getElementById('tflText').textContent = 'Click to attach a file';
+      document.getElementById('ticketFileLabel').classList.remove('tfl-has-file');
+    }
+  });
+
+  // Initialise EmailJS
+  emailjs.init('K75WZ8SA3w-J_N4HA');
+
+  document.getElementById('ticketForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const ref = generateTicketRef();
+    document.getElementById('t-ref-hidden').value = ref;
+    document.getElementById('ticketSubmitBtn').disabled = true;
+    document.getElementById('ticketBtnText').textContent = 'Sending…';
+
+    const toName  = document.getElementById('t-name').value;
+    const toEmail = document.getElementById('t-email').value;
+    const subject = document.getElementById('t-subject').value;
+
+    // Fire both in parallel — Formspree (with attachment) + EmailJS (auto-reply)
+    await Promise.allSettled([
+      fetch(this.action, { method: 'POST', body: new FormData(this), headers: { Accept: 'application/json' } }),
+      emailjs.send('service_xbgafuu', 'template_3rqbvpc', {
+        to_name:      toName,
+        to_email:     toEmail,
+        ticket_ref:   ref,
+        subject_line: subject
+      })
+    ]);
+
+    document.getElementById('ticketRefDisplay').textContent = ref;
+    document.getElementById('ticketFormView').style.display = 'none';
+    document.getElementById('ticketSuccessView').style.display = '';
+  });
+
+  document.getElementById('ticketDoneBtn').addEventListener('click', () => closeModal('ticketModal'));
 
   document.getElementById('mspTrigger').addEventListener('click', () => openModal('mspModal'));
   document.getElementById('mspClose').addEventListener('click', () => closeModal('mspModal'));
@@ -564,5 +726,19 @@
     .text('Head Office');
 })();
 </script>
+
+<!-- Start of Tawk.to Script -->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/69ef0df0066c261c33da2828/1jn6sssss';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!-- End of Tawk.to Script -->
 </body>
 </html>

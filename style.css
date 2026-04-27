@@ -12,6 +12,7 @@
   --sky: #e3f2fd;
   --sand: #f4f7fb;
   --coral: #e05c3a;
+  --red: #d32f2f;
   --text: #0d1b2e;
   --muted: #4a6080;
   --white: #ffffff;
@@ -693,7 +694,7 @@ section { padding: 80px 5%; }
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 
 .form-submit {
-  background: var(--coral);
+  background: linear-gradient(135deg, #29b6f6 0%, #1565c0 100%);
   color: var(--white);
   border: none;
   width: 100%;
@@ -819,7 +820,7 @@ footer p { font-size: 0.82rem; color: rgba(255,255,255,0.4); }
 .chat-feature .cf-icon { font-size: 1.1rem; }
 
 .btn-pay {
-  background: linear-gradient(135deg, #29b6f6 0%, #1565c0 100%);
+  background: var(--coral);
   color: var(--white);
   border: none;
   width: 100%;
@@ -1111,4 +1112,285 @@ footer p { font-size: 0.82rem; color: rgba(255,255,255,0.4); }
 @media (max-width: 780px) {
   .pricing-modal { padding: 28px 20px; }
   .pricing-cols { grid-template-columns: 1fr; }
+}
+
+/* ─── TICKET CTA BAR (inside pricing modal) ───────────────── */
+
+.ticket-cta-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  background: linear-gradient(135deg, rgba(41,182,246,0.1) 0%, rgba(21,101,192,0.15) 100%);
+  border: 1.5px solid rgba(41,182,246,0.35);
+  border-radius: 14px;
+  padding: 16px 20px;
+  margin-top: 18px;
+  margin-bottom: 22px;
+  flex-wrap: wrap;
+}
+
+.ticket-cta-text {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.ticket-cta-icon { font-size: 1.5rem; flex-shrink: 0; }
+
+.ticket-cta-text strong {
+  display: block;
+  color: var(--white);
+  font-size: 0.93rem;
+  font-weight: 700;
+}
+
+.ticket-cta-text span {
+  color: rgba(255,255,255,0.55);
+  font-size: 0.84rem;
+}
+
+.ticket-cta-btn {
+  background: var(--red);
+  color: var(--white);
+  border: none;
+  padding: 10px 22px;
+  border-radius: 50px;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.15s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.ticket-cta-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+
+/* ─── TICKET MODAL ────────────────────────────────────────── */
+
+.ticket-modal { max-width: 560px; }
+
+.ticket-modal-header { margin-bottom: 24px; }
+
+.ticket-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(41,182,246,0.12);
+  border: 1px solid rgba(41,182,246,0.3);
+  border-radius: 50px;
+  padding: 5px 14px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--bright);
+  margin-bottom: 12px;
+}
+
+.ticket-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.ticket-field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ticket-field-group label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: rgba(255,255,255,0.7);
+  letter-spacing: 0.3px;
+}
+
+.ticket-field-group input,
+.ticket-field-group textarea {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(41,182,246,0.2);
+  border-radius: 10px;
+  padding: 11px 14px;
+  color: var(--white);
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.93rem;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+  width: 100%;
+}
+
+.ticket-field-group input:focus,
+.ticket-field-group textarea:focus {
+  border-color: var(--bright);
+  background: rgba(41,182,246,0.07);
+}
+
+.ticket-field-group input::placeholder,
+.ticket-field-group textarea::placeholder { color: rgba(255,255,255,0.28); }
+
+.ticket-field-group textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.ticket-submit-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #29b6f6 0%, #1565c0 100%);
+  color: var(--white);
+  border: none;
+  padding: 14px;
+  border-radius: 12px;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.15s;
+  margin-bottom: 10px;
+}
+
+.ticket-submit-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+.ticket-submit-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+.ticket-reassurance {
+  text-align: center;
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.35);
+}
+
+/* ─── TICKET SUCCESS ──────────────────────────────────────── */
+
+.ticket-success {
+  text-align: center;
+  padding: 12px 0 8px;
+}
+
+.ticket-success-icon {
+  font-size: 2.8rem;
+  margin-bottom: 14px;
+  animation: popIn 0.35s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+
+@keyframes popIn {
+  from { transform: scale(0.5); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}
+
+.ticket-ref-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  background: rgba(41,182,246,0.08);
+  border: 1.5px solid rgba(41,182,246,0.35);
+  border-radius: 14px;
+  padding: 18px 24px;
+  margin: 24px auto 16px;
+  max-width: 320px;
+}
+
+.ticket-ref-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+}
+
+.ticket-ref-num {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.7rem;
+  color: var(--bright);
+  letter-spacing: 1px;
+}
+
+.ticket-success-note {
+  font-size: 0.84rem;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.6;
+  max-width: 340px;
+  margin: 0 auto 24px;
+}
+
+.ticket-done-btn {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: var(--white);
+  padding: 11px 32px;
+  border-radius: 50px;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  font-size: 0.93rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.ticket-done-btn:hover { background: rgba(255,255,255,0.14); }
+
+/* ─── TICKET CTA BAR LAYOUT FIX ──────────────────────────── */
+
+.ticket-cta-bar {
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+}
+
+.ticket-cta-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.ticket-cta-text span {
+  display: block;
+  white-space: normal;
+}
+
+/* ─── FILE ATTACHMENT FIELD ───────────────────────────────── */
+
+.ticket-label-optional {
+  font-weight: 400;
+  color: rgba(255,255,255,0.3);
+  font-size: 0.78rem;
+  margin-left: 6px;
+}
+
+.ticket-file-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  background: rgba(255,255,255,0.04);
+  border: 1.5px dashed rgba(41,182,246,0.3);
+  border-radius: 10px;
+  padding: 18px 16px;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+  text-align: center;
+}
+
+.ticket-file-label:hover {
+  background: rgba(41,182,246,0.07);
+  border-color: rgba(41,182,246,0.6);
+}
+
+.ticket-file-label.tfl-has-file {
+  background: rgba(41,182,246,0.09);
+  border-color: rgba(41,182,246,0.55);
+  border-style: solid;
+}
+
+.tfl-icon { font-size: 1.4rem; margin-bottom: 2px; }
+
+.tfl-text {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--bright);
+}
+
+.tfl-hint {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.28);
 }
