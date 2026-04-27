@@ -370,6 +370,8 @@ section { padding: 80px 5%; }
   border-radius: 20px;
   border: 1.5px solid #dde8f5;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .service-group-header {
@@ -402,7 +404,7 @@ section { padding: 80px 5%; }
 
 .service-group-header p { font-size: 0.85rem; color: var(--muted); margin-top: 2px; }
 
-.service-list { padding: 10px 0; }
+.service-list { padding: 10px 0 6px; flex: 1; display: flex; flex-direction: column; }
 
 .service-item {
   display: flex;
@@ -413,7 +415,7 @@ section { padding: 80px 5%; }
   transition: background 0.15s;
 }
 
-.service-item:last-child { border-bottom: none; }
+.service-item:last-child { border-bottom: none; padding-bottom: 22px; margin-top: auto; }
 .service-item:hover { background: #f8fbff; }
 
 .si-icon {
@@ -1393,4 +1395,150 @@ footer p { font-size: 0.82rem; color: rgba(255,255,255,0.4); }
 .tfl-hint {
   font-size: 0.75rem;
   color: rgba(255,255,255,0.28);
+}
+
+/* ─── MOBILE NAV FIX ──────────────────────────────────────── */
+
+@media (max-width: 600px) {
+  nav {
+    padding: 0 4%;
+    gap: 10px;
+    flex-wrap: nowrap;
+  }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  .nav-live-btn {
+    font-size: 0.78rem;
+    padding: 7px 12px;
+    white-space: nowrap;
+  }
+
+  .nav-cta {
+    font-size: 0.78rem;
+    padding: 7px 12px;
+    white-space: nowrap;
+  }
+
+  .nav-logo {
+    font-size: 1.15rem;
+    flex-shrink: 0;
+  }
+}
+
+/* ─── STREAMING SERVICE CARD ──────────────────────────────── */
+
+.si-streaming {
+  background: linear-gradient(135deg, rgba(145,70,255,0.08) 0%, rgba(41,182,246,0.06) 100%);
+  border: 1.5px solid rgba(145,70,255,0.25);
+  position: relative;
+  overflow: hidden;
+}
+
+.si-icon.streaming {
+  background: linear-gradient(135deg, rgba(145,70,255,0.2), rgba(100,65,165,0.25));
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+
+.streaming-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.streaming-tags span {
+  background: rgba(145,70,255,0.12);
+  border: 1px solid rgba(145,70,255,0.3);
+  color: #c084fc;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 50px;
+  letter-spacing: 0.3px;
+}
+
+/* ─── ETHICAL RECYCLING CARD ──────────────────────────────── */
+
+.si-recycling {
+  background: linear-gradient(135deg, rgba(34,197,94,0.07) 0%, rgba(16,185,129,0.05) 100%);
+  border: 1.5px solid rgba(34,197,94,0.28);
+  position: relative;
+  overflow: hidden;
+}
+
+.si-recycling::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at top left, rgba(34,197,94,0.06) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.si-icon.recycling {
+  background: linear-gradient(135deg, rgba(34,197,94,0.2), rgba(16,185,129,0.25));
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+
+.si-recycling h4 {
+  color: #4ade80 !important;
+}
+
+.recycling-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.recycling-tags span {
+  background: rgba(34,197,94,0.1);
+  border: 1px solid rgba(34,197,94,0.3);
+  color: #86efac;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 50px;
+  letter-spacing: 0.3px;
+}
+
+/* ─── CHARITY PARTNER BUTTON ──────────────────────────────── */
+
+.btn-charity {
+  display: inline-block;
+  margin-top: 10px;
+  background: rgba(34,197,94,0.12);
+  border: 1.5px solid rgba(34,197,94,0.35);
+  color: #4ade80;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 800;
+  padding: 6px 16px;
+  border-radius: 50px;
+  text-decoration: none;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.btn-charity:hover {
+  background: rgba(34,197,94,0.22);
+  border-color: rgba(34,197,94,0.6);
 }
